@@ -1,0 +1,349 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' blob: data: file:; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' blob:; style-src-elem 'self' 'unsafe-inline' blob:;"
+    />
+    <title>Hello from Electron renderer!</title>
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="left-panel">
+        <!-- <div id="dropZone" class="drop-zone">
+          <h4>📚 Epub</h4>
+        </div> -->
+        <div id="visor"></div>
+        <div class="navegacion">
+          <button id="btn_prev" class="btn btn-primary">← Anterior</button>
+          <button id="btn_minus" class="btn btn-secondary">A-</button>
+          <input
+            id="progressText"
+            type="text"
+            class="form-control"
+            placeholder="Posicion actual"
+            aria-label="Posicion actual"
+          />
+          <button id="btn_plus" class="btn btn-secondary">A+</button>
+          <button id="btn_next" class="btn btn-primary">Siguiente →</button>
+        </div>
+        <input
+          id="progressBar"
+          type="range"
+          class="form-range"
+          min="0"
+          max="100"
+          value="0"
+        />
+      </div>
+
+      <div class="center-panel">
+        <h2>READ&SOUND</h2>
+        <div>
+          <div class="input-group mb-3">
+            <input
+              id="cfiInicio"
+              type="text"
+              class="form-control"
+              placeholder="Cfi inicio"
+              aria-label="Cfi inicio"
+              aria-describedby="buscarCfiInicio"
+              disabled
+            />
+            <span class="input-group-text" id="buscarCfiInicio">
+              <img src="img/lupa.png" data-bs-toggle="tooltip" title="buscar" />
+            </span>
+          </div>
+          <div class="input-group mb-3">
+            <input
+              id="cfiFinal"
+              type="text"
+              class="form-control"
+              placeholder="Cfi final"
+              aria-label="Cfi final"
+              aria-describedby="buscarCfiFin"
+              disabled
+            />
+            <span class="input-group-text" id="buscarCfiFin">
+              <img src="img/lupa.png" data-bs-toggle="tooltip" title="buscar" />
+            </span>
+          </div>
+        </div>
+        <div class="media-box" id="cancionEscogida">
+          <img
+            src="img/nota_musica_defecto.png"
+            alt="nota musical selecciona una cancion para el tramo"
+          />
+          <div class="media-text">Selecciona Canción</div>
+        </div>
+        <div class="guardar_borrar">
+          <button
+            id="btn_guardar"
+            data-bs-toggle="tooltip"
+            title="botón guardar"
+          >
+            <img
+              src="img/logo_rsound.png"
+              data-bs-toggle="tooltip"
+              title="botón guardar"
+            />
+          </button>
+          <button
+            id="btn_buscar_libro"
+            data-bs-toggle="modal"
+            data-bs-target="#modalBuscar"
+            title="buscar en el libro"
+          >
+            <img
+              src="img/buscar_rsound.png"
+              alt="boton para buscar en el libro"
+            />
+          </button>
+          <button id="btn_eliminar_avance" title="eliminar avance">
+            <img
+              src="img/bote-de-basura.png"
+              data-bs-toggle="tooltip"
+              title="eliminar"
+            />
+          </button>
+        </div>
+        <div class="import_export_group">
+          <button id="btn_importar" class="export_import">
+            <img
+              src="img/boton_importar.png"
+              data-bs-toggle="tooltip"
+              title="importar"
+            />
+          </button>
+          <button id="btn_exportar" class="export_import">
+            <img
+              src="img/boton_exportar.png"
+              data-bs-toggle="tooltip"
+              title="exportar"
+            />
+          </button>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <button class="btn btn-info" id="btnAddMusic">Añadir Canción</button>
+        <div class="cuadrado p-3" id="musicContainer">
+          <input
+            type="file"
+            id="inputAudio"
+            accept=".mp3"
+            style="display: none"
+          />
+        </div>
+
+        <div class="media-rsound"></div>
+      </div>
+    </div>
+
+    <!-- MODAL BUSCAR LIBRO -->
+    <div
+      class="modal fade"
+      id="modalBuscar"
+      tabindex="-1"
+      aria-labelledby="modalBuscarLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalBuscarLabel">
+              Buscar en el libro
+            </h1>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                id="searchInput"
+                class="form-control"
+                placeholder="Introduce palabra o frase"
+              />
+
+              <button class="btn btn-primary" id="btnSearch">Buscar</button>
+            </div>
+
+            <!-- RESULTADOS -->
+            <div id="searchResults" class="search-results"></div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL SELECCIONAR CFI -->
+    <div
+      class="modal fade"
+      id="modalCfi"
+      tabindex="-1"
+      aria-labelledby="modalCfiLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalCfiLabel">
+              ¿Es el principio o el final?
+            </h1>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <label for="modalCfiPalabra" class="form-label">Palabra</label>
+            <input
+              id="modalCfiPalabra"
+              type="text"
+              class="form-control"
+              value="Mark"
+              disabled
+            />
+
+            <label for="modalCfiCfi" class="form-label">CFI</label>
+            <input
+              type="text"
+              class="form-control"
+              id="modalCfiCfi"
+              value="Mark"
+              disabled
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button type="button" class="btn btn-primary" id="btnCfiInicio">
+              Establecer como Inicio
+            </button>
+            <button type="button" class="btn btn-success" id="btnCfiFin">
+              Establecer como Fin
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL CONFIRMAR RELACION -->
+    <!-- MODAL DESCRIPCIÓN RELACIÓN -->
+    <div
+      class="modal fade"
+      id="modalDescripcion"
+      tabindex="-1"
+      aria-labelledby="modalDescripcionLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalDescripcionLabel">
+              Descripción de la relación
+            </h1>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <label for="descripcionRelacion" class="form-label">
+              Escribe una descripción
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              id="descripcionRelacion"
+              placeholder="Ej: escena triste con música suave"
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="btnConfirmarRelacion"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="toast" class="toast align-items-center text-bg-primary border-0">
+        <div class="d-flex">
+          <div class="toast-body" id="toastBody">Mensaje</div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="loadingScreen">
+      <div class="loading-box">
+        <h2>Cargando libro...</h2>
+
+        <div class="progress">
+          <div id="loadingBar" class="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <p id="loadingText">Iniciando...</p>
+      </div>
+    </div>
+
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

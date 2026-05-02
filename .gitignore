@@ -1,0 +1,18 @@
+# Dependencias
+node_modules/
+
+# Electron builds
+dist/
+out/
+build/
+
+# Archivos pesados
+*.exe
+*.zip
+
+# Logs
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db

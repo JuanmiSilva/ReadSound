@@ -1,0 +1,366 @@
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel {
+    /* width: 40%;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 40%;
+    background: #f8f9fa;
+
+}
+
+#visor {
+    width: 100%;
+    height: 90%;
+}
+
+.navegacion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navegacion input {
+    flex: 1;
+    min-width: 120px;
+}
+
+.center-panel {
+    width: 20%;
+    background: #ffffff;
+    /* padding: 15px 0; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    /* separación bonita */
+}
+
+.right-panel {
+    width: 40%;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.drop-zone {
+    width: 90%;
+    height: 300px;
+    border: 3px dashed #0d6efd;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    transition: 0.3s;
+}
+
+.drop-zone.dragover {
+    background: #0d6efd;
+    color: white;
+    transform: scale(1.03);
+}
+
+/* LUPA DE LOS CFIs */
+.input-group-text img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+/* TARJETA MÚSICA */
+
+.media-box {
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.media-box img {
+    width: 140px;
+    height: 140px;
+    /* mismo alto que el texto si quieres simetría */
+    object-fit: cover;
+    display: block;
+}
+
+.media-text {
+    width: 100%;
+    height: 40px;
+    /* mismo tamaño que la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f2f2f2;
+    font-size: 14px;
+    text-align: center;
+}
+
+.guardar_borrar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.guardar_borrar img {
+    width: 60px;
+    height: auto;
+}
+
+.guardar_borrar button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.export_import {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.export_import img {
+    width: 150px;
+    /* igual que los otros */
+    height: auto;
+}
+
+.import_export_group {
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+}
+
+/* Panel Música */
+.cuadrado {
+    position: relative;
+
+    width: 80%;
+    height: 300px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    overflow-y: auto;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 🔥 SIEMPRE 3 columnas */
+    gap: 5px;
+}
+
+.cuadrado .card {
+    width: 25%;
+    /* 🔥 tamaño que tú quieras */
+    height: auto;
+}
+
+.media-box {
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 100%;
+    /* 🔥 ocupa su celda */
+    max-width: 140px;
+    /* opcional para no crecer demasiado */
+    margin: 0 auto;
+}
+
+.media-box:hover {
+    transform: scale(1.05);
+}
+
+.cuadrado .media-box {
+    width: 100px;
+    /* 🔥 más pequeñas */
+}
+
+.cuadrado .media-box img {
+    width: 100px;
+    height: 100px;
+}
+
+.cuadrado .media-text {
+    height: 25px;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    padding: 0 4px;
+}
+
+.btn-flotante {
+    position: sticky;
+    /* 🔥 ahora se mueve dentro del cuadrado */
+    bottom: 10px;
+    left: 10px;
+
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+
+    background-color: #0d6efd;
+    color: white;
+    font-size: 20px;
+    border: none;
+
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s;
+}
+
+.btn-flotante:hover {
+    transform: scale(1.1);
+}
+
+#btnAddMusic {
+    width: 80%;
+    margin-bottom: -20px;
+}
+
+/* MODAL */
+.search-results {
+    max-height: 400px;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.search-item {
+    padding: 10px;
+    border-radius: 8px;
+
+    background: #f2f2f2;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.search-item:hover {
+    background: #e2e2e2;
+    transform: scale(1.01);
+}
+
+.media-rsound {
+    position: relative;
+    width: 80%;
+    height: 300px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    overflow-y: auto;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    padding-top: 10px;
+}
+
+.tarjeta-cancion {
+    width: 95%;
+    min-height: 90px;
+
+    background-color: #dddddd;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 10px 15px;
+    box-sizing: border-box;
+}
+
+.tarjeta-cancion:hover {
+    background-color: #d0d0d0;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 98%;
+    min-height: 95px;
+}
+
+/* Imagen */
+.cover {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Información */
+.info {
+    flex: 1;
+}
+
+.info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.rango {
+    margin-top: 5px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Botón */
+.btn-eliminar {
+    border: none;
+    background-color: #ff4d4d;
+    color: white;
+
+    padding: 10px 15px;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.btn-eliminar:hover {
+    opacity: 0.8;
+}
+
+/* CARGANDO */
+#loadingScreen {
+    position: fixed;
+    inset: 0;
+    background: #111;
+    z-index: 99999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-box {
+    width: 300px;
+    text-align: center;
+    color: white;
+}
+
+.progress {
+    height: 20px;
+    margin-top: 20px;
+}
