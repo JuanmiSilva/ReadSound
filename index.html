@@ -20,32 +20,47 @@
         <!-- <div id="dropZone" class="drop-zone">
           <h4>📚 Epub</h4>
         </div> -->
-        <div id="visor"></div>
-        <div class="navegacion">
-          <button id="btn_prev" class="btn btn-primary">← Anterior</button>
-          <button id="btn_minus" class="btn btn-secondary">A-</button>
-          <input
-            id="progressText"
-            type="text"
-            class="form-control"
-            placeholder="Posicion actual"
-            aria-label="Posicion actual"
-          />
-          <button id="btn_plus" class="btn btn-secondary">A+</button>
-          <button id="btn_next" class="btn btn-primary">Siguiente →</button>
+        <div id="dropZone" class="drop-zone">
+          <h4>📚 Arrastra tu EPUB aquí</h4>
+          <p>o suéltalo para empezar</p>
         </div>
-        <input
-          id="progressBar"
-          type="range"
-          class="form-range"
-          min="0"
-          max="100"
-          value="0"
-        />
+        <div id="wrap-visor" style="display: none">
+          <div id="visor"></div>
+          <div class="navegacion">
+            <button id="btn_prev" class="btn btn-primary">← Anterior</button>
+            <button id="btn_minus" class="btn btn-secondary">A-</button>
+            <input
+              id="progressText"
+              type="text"
+              class="form-control"
+              placeholder="Posicion actual"
+              aria-label="Posicion actual"
+            />
+            <button id="btn_plus" class="btn btn-secondary">A+</button>
+            <button id="btn_next" class="btn btn-primary">Siguiente →</button>
+          </div>
+          <input
+            id="progressBar"
+            type="range"
+            class="form-range"
+            min="0"
+            max="100"
+            value="0"
+          />
+        </div>
       </div>
 
       <div class="center-panel">
-        <h2>READ&SOUND</h2>
+        <div class="title">
+          <h2>READ&SOUND</h2>
+          <button
+            id="langToggle"
+            class="btn btn-secondary btn-sm"
+            onclick="setLang(currentLang === 'es' ? 'en' : 'es')"
+          >
+            EN
+          </button>
+        </div>
         <div>
           <div class="input-group mb-3">
             <input
@@ -75,13 +90,36 @@
               <img src="img/lupa.png" data-bs-toggle="tooltip" title="buscar" />
             </span>
           </div>
+          <div class="media-box" id="cancionEscogida">
+            <img
+              src="img/nota_musica_defecto.png"
+              alt="nota musical selecciona una cancion para el tramo"
+            />
+            <div class="media-text">Selecciona Canción</div>
+          </div>
         </div>
-        <div class="media-box" id="cancionEscogida">
-          <img
-            src="img/nota_musica_defecto.png"
-            alt="nota musical selecciona una cancion para el tramo"
-          />
-          <div class="media-text">Selecciona Canción</div>
+
+        <div class="tarjetas-definidas">
+          <select class="form-select" id="selectTarjetas">
+            <option value="" selected>Selecciona una tarjeta</option>
+          </select>
+
+          <div
+            class="btn-group"
+            role="group"
+            aria-label="Basic mixed styles example"
+          >
+            <button type="button" class="btn btn-success" id="addTarjeta">
+              + Tarjeta
+            </button>
+            <!-- <button
+              type="button"
+              class="btn btn-success"
+              id="guardarPorTarjeta"
+            >
+              Guardar
+            </button> -->
+          </div>
         </div>
         <div class="guardar_borrar">
           <button
@@ -115,31 +153,64 @@
           </button>
         </div>
         <div class="import_export_group">
-          <button id="btn_importar" class="export_import">
+          <!-- <button id="btn_importar" class="export_import">
             <img
               src="img/boton_importar.png"
               data-bs-toggle="tooltip"
               title="importar"
             />
-          </button>
+          </button> -->
           <button id="btn_exportar" class="export_import">
-            <img
-              src="img/boton_exportar.png"
-              data-bs-toggle="tooltip"
-              title="exportar"
-            />
+            <rect width="680" height="200" rx="12" fill="#fe3c0d" />
+
+            <svg width="250" viewBox="0 0 680 200" role="img">
+              <g transform="translate(240, 40)">
+                <polygon
+                  points="0,50 70,50 70,30 110,65 70,100 70,80 0,80"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="8"
+                  stroke-linejoin="round"
+                />
+                <rect
+                  x="120"
+                  y="0"
+                  width="80"
+                  height="130"
+                  rx="12"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="8"
+                />
+                <rect
+                  x="148"
+                  y="6"
+                  width="24"
+                  height="6"
+                  rx="3"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
           </button>
         </div>
       </div>
 
       <div class="right-panel">
-        <button class="btn btn-info" id="btnAddMusic">Añadir Canción</button>
+        <button
+          class="btn btn-success"
+          id="btnAddMusic"
+          onclick="console.log('click directo HTML')"
+        >
+          Add Song
+        </button>
         <div class="cuadrado p-3" id="musicContainer">
           <input
             type="file"
             id="inputAudio"
             accept=".mp3"
-            style="display: none"
+            multiple
+            style="position: fixed; top: -100px; left: -100px; opacity: 0"
           />
         </div>
 
@@ -311,8 +382,73 @@
               type="button"
               class="btn btn-primary"
               id="btnConfirmarRelacion"
+              data-bs-dismiss="modal"
             >
               Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL CREAR TARJETA -->
+    <div
+      class="modal fade"
+      id="modalTarjeta"
+      tabindex="-1"
+      aria-labelledby="modalTarjetaLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalTarjetaLabel">
+              Crear nueva tarjeta
+            </h1>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="media-box" id="cancionEscogidaModal">
+              <img
+                src="img/nota_musica_defecto.png"
+                alt="nota musical selecciona una cancion para el tramo"
+              />
+              <div class="media-text">Selecciona Canción</div>
+            </div>
+
+            <label for="nombreTarjeta" class="form-label">
+              Escribe el nombre de la tarjeta
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              id="nombreTarjeta"
+              placeholder="Ej: bosque"
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="btnConfirmarTarjeta"
+            >
+              Crear
             </button>
           </div>
         </div>
@@ -344,6 +480,14 @@
     </div>
 
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+    <script src="i18n.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/epub.js"></script>
+    <script src="js/cfi.js"></script>
+    <script src="js/music.js"></script>
+    <script src="js/relaciones.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>

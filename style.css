@@ -9,19 +9,43 @@ body {
 }
 
 .left-panel {
-    /* width: 40%;
-    background: #f8f9fa;
-    display: flex;
-    justify-content: center;
-    align-items: center; */
     width: 40%;
-    background: #f8f9fa;
+    background: #fff8c5;
+    /* antes #fff3a1 — ligeramente más cálido */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.tarjetas-definidas {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.tarjetas-definidas select,
+.tarjetas-definidas .btn-group {
+    width: 80%;
+}
+
+.tarjetas-definidas .btn-group button {
+    flex: 1;
+}
+
+#wrap-visor {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #visor {
     width: 100%;
-    height: 90%;
+    flex: 1;
+    min-height: 0;
 }
 
 .navegacion {
@@ -37,19 +61,29 @@ body {
 
 .center-panel {
     width: 20%;
-    background: #ffffff;
-    /* padding: 15px 0; */
-
+    background: #fad95e;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    /* separación bonita */
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.title h2 {
+    margin: 0;
 }
 
 .right-panel {
     width: 40%;
-    background: #f8f9fa;
+    background: #fff8c5;
+    /* antes #fff3a1 — unificado con left-panel */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,25 +92,30 @@ body {
 }
 
 .drop-zone {
-    width: 90%;
-    height: 300px;
-    border: 3px dashed #0d6efd;
-    border-radius: 15px;
+    width: 70%;
+    height: 200px;
+    margin: 0;
+    border: 2px dashed #c9a400;
+    /* antes #999 gris — ahora ámbar coherente */
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: 0.2s;
+    color: #7a6200;
+    /* antes #666 gris */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    background: #fff;
-    transition: 0.3s;
 }
 
 .drop-zone.dragover {
-    background: #0d6efd;
-    color: white;
+    background: #fad95e;
+    /* antes azul Bootstrap — ahora amarillo de la app */
+    color: #5c4a00;
     transform: scale(1.03);
 }
 
-/* LUPA DE LOS CFIs */
 .input-group-text img {
     width: 18px;
     height: 18px;
@@ -84,7 +123,6 @@ body {
 }
 
 /* TARJETA MÚSICA */
-
 .media-box {
     width: 140px;
     display: flex;
@@ -95,7 +133,6 @@ body {
 .media-box img {
     width: 140px;
     height: 140px;
-    /* mismo alto que el texto si quieres simetría */
     object-fit: cover;
     display: block;
 }
@@ -103,12 +140,13 @@ body {
 .media-text {
     width: 100%;
     height: 40px;
-    /* mismo tamaño que la imagen */
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background: #f2f2f2;
+    background: #fef3a0;
+    /* antes #f2f2f2 gris — ahora amarillo claro */
+    color: #5c4a00;
+    /* texto oscuro sobre amarillo */
     font-size: 14px;
     text-align: center;
 }
@@ -131,6 +169,18 @@ body {
     cursor: pointer;
 }
 
+.guardar_borrar {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#btn_eliminar_avance {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
 .export_import {
     border: none;
     background: none;
@@ -139,7 +189,6 @@ body {
 
 .export_import img {
     width: 150px;
-    /* igual que los otros */
     height: auto;
 }
 
@@ -152,22 +201,19 @@ body {
 /* Panel Música */
 .cuadrado {
     position: relative;
-
     width: 80%;
     height: 300px;
-    background-color: #f2f2f2;
+    background-color: #f5ce3e;
+    /* antes #f0e68c — más saturado, dentro de la paleta */
     border-radius: 10px;
     overflow-y: auto;
-
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* 🔥 SIEMPRE 3 columnas */
     gap: 5px;
 }
 
 .cuadrado .card {
     width: 25%;
-    /* 🔥 tamaño que tú quieras */
     height: auto;
 }
 
@@ -175,9 +221,7 @@ body {
     cursor: pointer;
     transition: transform 0.2s;
     width: 100%;
-    /* 🔥 ocupa su celda */
     max-width: 140px;
-    /* opcional para no crecer demasiado */
     margin: 0 auto;
 }
 
@@ -187,7 +231,6 @@ body {
 
 .cuadrado .media-box {
     width: 100px;
-    /* 🔥 más pequeñas */
 }
 
 .cuadrado .media-box img {
@@ -205,35 +248,6 @@ body {
     padding: 0 4px;
 }
 
-.btn-flotante {
-    position: sticky;
-    /* 🔥 ahora se mueve dentro del cuadrado */
-    bottom: 10px;
-    left: 10px;
-
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-
-    background-color: #0d6efd;
-    color: white;
-    font-size: 20px;
-    border: none;
-
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: 0.2s;
-}
-
-.btn-flotante:hover {
-    transform: scale(1.1);
-}
-
 #btnAddMusic {
     width: 80%;
     margin-bottom: -20px;
@@ -243,7 +257,6 @@ body {
 .search-results {
     max-height: 400px;
     overflow-y: auto;
-
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -252,15 +265,16 @@ body {
 .search-item {
     padding: 10px;
     border-radius: 8px;
-
-    background: #f2f2f2;
+    background: #fef3a0;
+    /* antes #f2f2f2 gris */
+    color: #5c4a00;
     cursor: pointer;
-
     transition: 0.2s;
 }
 
 .search-item:hover {
-    background: #e2e2e2;
+    background: #fde97a;
+    /* antes #e2e2e2 gris */
     transform: scale(1.01);
 }
 
@@ -268,10 +282,10 @@ body {
     position: relative;
     width: 80%;
     height: 300px;
-    background-color: #f2f2f2;
+    background-color: #f5ce3e;
+    /* antes #f0e68c — unificado con .cuadrado */
     border-radius: 10px;
     overflow-y: auto;
-
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -282,27 +296,24 @@ body {
 .tarjeta-cancion {
     width: 95%;
     min-height: 90px;
-
-    background-color: #dddddd;
+    background-color: #fad95e;
     border-radius: 12px;
-
     display: flex;
     align-items: center;
     gap: 15px;
-
     padding: 10px 15px;
     box-sizing: border-box;
 }
 
 .tarjeta-cancion:hover {
-    background-color: #d0d0d0;
+    background-color: #fde97a;
+    /* antes igual que normal — ahora sí hay feedback */
     cursor: pointer;
     transition: 0.2s;
     width: 98%;
     min-height: 95px;
 }
 
-/* Imagen */
 .cover {
     width: 70px;
     height: 70px;
@@ -310,7 +321,6 @@ body {
     object-fit: cover;
 }
 
-/* Información */
 .info {
     flex: 1;
 }
@@ -318,23 +328,25 @@ body {
 .info h3 {
     margin: 0;
     font-size: 18px;
+    color: #3d2f00;
+    /* antes heredado — ahora explícito sobre amarillo */
 }
 
 .rango {
     margin-top: 5px;
-    color: #666;
+    color: #7a6200;
+    /* antes #666 gris */
     font-size: 14px;
 }
 
-/* Botón */
+/* Botón eliminar */
 .btn-eliminar {
     border: none;
-    background-color: #ff4d4d;
+    background-color: #c9790a;
+    /* antes #ff4d4d rojo — ahora ámbar oscuro de la paleta */
     color: white;
-
     padding: 10px 15px;
     border-radius: 8px;
-
     cursor: pointer;
 }
 
@@ -346,9 +358,9 @@ body {
 #loadingScreen {
     position: fixed;
     inset: 0;
-    background: #111;
+    background: #fad95e;
+    /* antes #f0e68c — unificado con panel central */
     z-index: 99999;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -357,10 +369,252 @@ body {
 .loading-box {
     width: 300px;
     text-align: center;
-    color: white;
+    color: #3d2f00;
+    /* antes white — legible sobre amarillo */
 }
 
 .progress {
     height: 20px;
     margin-top: 20px;
+}
+
+/* HOVER BOTONES */
+#btn_guardar,
+#btn_buscar_libro,
+#btn_eliminar_avance,
+#btn_importar,
+#btn_exportar {
+    transition: transform 0.2s;
+}
+
+#btn_guardar:hover,
+#btn_buscar_libro:hover,
+#btn_eliminar_avance:hover,
+#btn_importar:hover,
+#btn_exportar:hover {
+    transform: scale(1.1);
+}
+
+#btn_buscar_libro img {
+    width: 80px;
+    height: auto;
+}
+
+/* ============================================================
+   BOOTSTRAP OVERRIDES — paleta READ&SOUND
+   Añadir al final de style.css
+   ============================================================ */
+
+/* Variables globales Bootstrap → paleta amarilla */
+:root {
+    --bs-primary: #c9790a;
+    --bs-primary-rgb: 201, 121, 10;
+    --bs-primary-bg-subtle: #fef3a0;
+    --bs-primary-border-subtle: #fde97a;
+    --bs-primary-text-emphasis: #5c4a00;
+
+    --bs-secondary: #a08800;
+    --bs-secondary-rgb: 160, 136, 0;
+
+    --bs-success: #5a7a00;
+    /* verde oliva, armónico con el amarillo */
+    --bs-success-rgb: 90, 122, 0;
+
+    --bs-info: #7a6200;
+    --bs-info-rgb: 122, 98, 0;
+
+    --bs-warning: #fad95e;
+    --bs-warning-rgb: 250, 217, 94;
+
+    --bs-danger: #c9790a;
+    /* ámbar oscuro en vez de rojo */
+    --bs-danger-rgb: 201, 121, 10;
+
+    --bs-link-color: #7a6200;
+    --bs-link-hover-color: #5c4a00;
+
+    /* Focus ring */
+    --bs-focus-ring-color: rgba(201, 121, 10, 0.35);
+}
+
+/* ── BOTONES PRIMARIOS ── */
+.btn-primary {
+    --bs-btn-bg: #c9790a;
+    --bs-btn-border-color: #b06a08;
+    --bs-btn-hover-bg: #b06a08;
+    --bs-btn-hover-border-color: #966008;
+    --bs-btn-active-bg: #966008;
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #fff;
+    --bs-btn-focus-shadow-rgb: 201, 121, 10;
+}
+
+/* ── BOTONES SECUNDARIOS ── */
+.btn-secondary {
+    --bs-btn-bg: #fad95e;
+    --bs-btn-border-color: #e0bc30;
+    --bs-btn-hover-bg: #f5ce3e;
+    --bs-btn-hover-border-color: #c9a400;
+    --bs-btn-active-bg: #e8be20;
+    --bs-btn-color: #3d2f00;
+    --bs-btn-hover-color: #3d2f00;
+    --bs-btn-active-color: #3d2f00;
+}
+
+/* ── BOTONES SUCCESS ── */
+.btn-success {
+    --bs-btn-bg: #5a7a00;
+    --bs-btn-border-color: #4a6600;
+    --bs-btn-hover-bg: #4a6600;
+    --bs-btn-hover-border-color: #3a5200;
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #fff;
+}
+
+/* ── BOTONES INFO ── */
+.btn-info {
+    --bs-btn-bg: #fef3a0;
+    --bs-btn-border-color: #fde97a;
+    --bs-btn-hover-bg: #fde97a;
+    --bs-btn-hover-border-color: #fad95e;
+    --bs-btn-color: #5c4a00;
+    --bs-btn-hover-color: #3d2f00;
+    --bs-btn-active-bg: #fad95e;
+    --bs-btn-active-color: #3d2f00;
+}
+
+/* ── BOTONES OUTLINE ── */
+.btn-outline-primary {
+    --bs-btn-color: #c9790a;
+    --bs-btn-border-color: #c9790a;
+    --bs-btn-hover-bg: #c9790a;
+    --bs-btn-hover-color: #fff;
+}
+
+/* ── CAMPOS DE TEXTO (input, select, textarea) ── */
+.form-control,
+.form-select {
+    background-color: #fffde8;
+    /* fondo muy suave, casi blanco amarillado */
+    border-color: #d4b800;
+    color: #3d2f00;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #fffde8;
+    border-color: #c9790a;
+    color: #3d2f00;
+    box-shadow: 0 0 0 0.25rem rgba(201, 121, 10, 0.25);
+}
+
+.form-control::placeholder {
+    color: #a08800;
+    opacity: 1;
+}
+
+.form-control:disabled,
+.form-control[readonly],
+.form-select:disabled {
+    background-color: #fef3a0;
+    border-color: #e0c840;
+    color: #7a6200;
+}
+
+/* ── INPUT GROUP (lupa) ── */
+.input-group-text {
+    background-color: #fad95e;
+    border-color: #d4b800;
+    color: #5c4a00;
+}
+
+/* ── MODALES ── */
+.modal-content {
+    background-color: #fff8c5;
+    border: 1px solid #d4b800;
+    border-radius: 12px;
+}
+
+.modal-header {
+    background-color: #fad95e;
+    border-bottom: 1px solid #d4b800;
+    border-radius: 11px 11px 0 0;
+}
+
+.modal-title {
+    color: #3d2f00;
+    font-weight: 600;
+}
+
+.modal-footer {
+    background-color: #fef3a0;
+    border-top: 1px solid #d4b800;
+    border-radius: 0 0 11px 11px;
+}
+
+.btn-close {
+    filter: brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(800%) hue-rotate(25deg) brightness(80%);
+}
+
+/* ── SELECT DENTRO DE TARJETAS DEFINIDAS ── */
+#selectTarjetas {
+    background-color: #fef3a0;
+    border-color: #d4b800;
+    color: #3d2f00;
+}
+
+#selectTarjetas:focus {
+    border-color: #c9790a;
+    box-shadow: 0 0 0 0.25rem rgba(201, 121, 10, 0.25);
+}
+
+/* ── TOAST ── */
+.toast.text-bg-primary {
+    background-color: #c9790a !important;
+    color: #fff !important;
+}
+
+/* ── RANGE (barra de progreso del libro) ── */
+.form-range::-webkit-slider-thumb {
+    background: #c9790a;
+}
+
+.form-range::-moz-range-thumb {
+    background: #c9790a;
+}
+
+.form-range::-webkit-slider-runnable-track {
+    background: #fad95e;
+}
+
+.form-range::-moz-range-track {
+    background: #fad95e;
+}
+
+/* ── BARRA DE PROGRESO DEL LOADING ── */
+.progress {
+    background-color: #fde97a;
+}
+
+.progress-bar {
+    background-color: #c9790a;
+}
+
+#langToggle {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #fef3a0;
+    border: 1px solid #d4b800;
+    color: #5c4a00;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+#langToggle:hover {
+    background: #fde97a;
+    transform: scale(1.08);
 }

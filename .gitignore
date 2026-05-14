@@ -16,3 +16,9 @@ build/
 # Sistema
 .DS_Store
 Thumbs.db
+
+userData/
+audio/
+
+# Epub de prueba (si no quieres subirlo)
+libro/

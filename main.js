@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -14,6 +14,19 @@ const createWindow = () => {
   win.maximize();
   win.loadFile('index.html');
 };
+
+ipcMain.handle("get-user-data-path", () => {
+  return app.getPath("userData");
+});
+
+ipcMain.handle('dialog-save', async (event, defaultName) => {
+  const { filePath } = await dialog.showSaveDialog({
+    title: 'Exportar Rsound',
+    defaultPath: defaultName,
+    filters: [{ name: 'Rsound', extensions: ['rsound'] }]
+  });
+  return filePath;
+});
 
 app.whenReady().then(() => {
   createWindow();
