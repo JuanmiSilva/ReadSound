@@ -80,6 +80,12 @@ Proyecto en desarrollo como TFG de DAM.
 
 ---
 
+## Posible fallo
+
+En caso de que algún archivo javascript de fallo en el index html comentar las declaraciones de javascript menos i18n y descomentar la de script.js
+
+---
+
 ## Autor
 
 Juanmi Silva
